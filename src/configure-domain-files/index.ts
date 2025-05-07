@@ -17,6 +17,7 @@ const main = async (outputPath: string, ip?: string) => {
   const domains = domainGeneratorConfigs.flatMap((config) =>
     computeDomainsFromConfig(config)
   );
+
   const appsWithPaths = [...new Set(domains.map((domain) => domain.app))].map(
     (app) => appsConfig.find((config) => config.app === app)!
   );

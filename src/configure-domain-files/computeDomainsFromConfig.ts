@@ -14,14 +14,20 @@ const computeDomainsFromConfig = (
   config.platforms.forEach((platform) => {
     // Iterate through each subdomain configuration
     config.subdomains.forEach((subdomainConfig) => {
-      // Iterate through each credit union
-      subdomainConfig.creditUnions.forEach((creditUnion) => {
-        // Construct the domain and add it to the result with app information
+      if (subdomainConfig.creditUnions.length === 0) {
         results.push({
-          domain: `${platform}.${creditUnion}.${subdomainConfig.subdomain}`,
+          domain: `${platform}.${subdomainConfig.subdomain}`,
           app: config.app,
         });
-      });
+      } else {
+        // Handle case with credit unions
+        subdomainConfig.creditUnions.forEach((creditUnion) => {
+          results.push({
+            domain: `${platform}.${creditUnion}.${subdomainConfig.subdomain}`,
+            app: config.app,
+          });
+        });
+      }
     });
   });
 

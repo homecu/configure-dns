@@ -30,11 +30,89 @@ export const appsConfig: AppConfig[] = [
 
 export const domainGeneratorConfigs: DomainGeneratorConfig[] = [
   {
+    app: App.MEMBER,
+    platforms: ["localmember"],
+    subdomains: [
+      {
+        creditUnions: ["wasatchpeaks"],
+        subdomain: "com",
+      },
+      {
+        creditUnions: ["wp", "stj", "bhcu", "clarity"],
+        subdomain: "blossombeta.com",
+      },
+      {
+        creditUnions: ["homecu", "pdcu"],
+        subdomain: "blossomdev.com",
+      },
+    ],
+  },
+  {
+    app: App.AUTH,
+    platforms: ["localauth"],
+    subdomains: [
+      {
+        creditUnions: ["wp", "bhcu"],
+        subdomain: "blossombeta.com",
+      },
+      {
+        creditUnions: ["homecu", "pdcu"],
+        subdomain: "blossomdev.com",
+      },
+    ],
+  },
+  {
     app: App.ADMIN,
     platforms: ["localadmin"],
     subdomains: [
       {
-        creditUnions: ["homecu"],
+        creditUnions: ["cucentric", "homecu", "pdcu"],
+        subdomain: "blossomdev.com",
+      },
+      {
+        creditUnions: ["crossvalley", "wp2"],
+        subdomain: "blossomalpha.com",
+      },
+      {
+        creditUnions: ["wp", "stj", "bhcu", "clarity", "amucu"],
+        subdomain: "blossombeta.com",
+      },
+      {
+        creditUnions: ["sandjfcu"],
+        subdomain: "blossom.net",
+      },
+    ],
+  },
+  {
+    app: App.VIEWER,
+    platforms: ["localviewer"],
+    subdomains: [
+      {
+        creditUnions: ["wp", "bhcu", "stj", "clarity"],
+        subdomain: "blossombeta.com",
+      },
+      {
+        creditUnions: ["homecu", "pdcu"],
+        subdomain: "blossomdev.com",
+      },
+    ],
+  },
+  {
+    app: App.BREEZE,
+    platforms: ["localbreeze"],
+    subdomains: [
+      {
+        creditUnions: ["homecu", "pdcu"],
+        subdomain: "blossomdev.com",
+      },
+    ],
+  },
+  {
+    app: App.UI,
+    platforms: ["localui"],
+    subdomains: [
+      {
+        creditUnions: [],
         subdomain: "blossomdev.com",
       },
     ],
