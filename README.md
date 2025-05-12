@@ -80,21 +80,6 @@ Options:
 - `-o`: Path to configuration file (required)
 - `-i`: IP address for host entries (default: "localhost")
 
-Example configuration file:
-
-```json
-{
-  "app": "myapp",
-  "platforms": ["local", "dev"],
-  "subdomains": [
-    {
-      "subdomain": "example.com",
-      "creditUnions": ["cu1", "cu2"]
-    }
-  ]
-}
-```
-
 ### Bash Utilities (`src/bash-utils/`)
 
 #### Apply Domain Configuration
