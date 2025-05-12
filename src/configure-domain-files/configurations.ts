@@ -52,7 +52,7 @@ export const domainGeneratorConfigs: DomainGeneratorConfig[] = [
     platforms: ["localauth"],
     subdomains: [
       {
-        creditUnions: ["wp", "bhcu"],
+        creditUnions: ["wp", "bhcu", "stj", "clarity"],
         subdomain: "blossombeta.com",
       },
       {
