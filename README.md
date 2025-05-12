@@ -69,7 +69,7 @@ To add a new domain:
 
 ### Domain Configuration Generator (`src/configure-domain-files/`)
 
-Generates domain configurations from a JSON config file.
+Generates domain configurations and stores those files on `PATH_TO_CONFIG` folder
 
 ```bash
 npx ts-node src/configure-domain-files -o "PATH_TO_CONFIG" -i IP_ADDRESS
