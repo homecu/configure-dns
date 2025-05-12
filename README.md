@@ -1,16 +1,113 @@
-# How to run.
+# DNS Configuration Tools
 
-1. Install brew.
-2. Install dnsmasq.
-3. Configure a static ip address for your computer.
-4. Execute the following command on terminal
+Collection of utilities to manage local DNS configuration and domain mapping for development environments.
+
+## Overview
+
+This toolkit provides:
+
+- Domain configuration generator
+- DNS configuration utilities
+- Nginx configuration management
+- Host file management
+
+## Installation
+
+```bash
+git clone https://github.com/homecu/configure-dns.git
+cd configure-dns
+npm install
 ```
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/jgimitola-blossom/configure-dns/main/src/configure-dns.sh)"
+
+## Adding New Domains
+
+Domains are configured in `src/configure-domain-files/configurations.ts`. The configuration consists of two main parts:
+
+### 1. App Configuration
+
+```typescript
+{
+  app: App.MEMBER,  // Application identifier
+  port: 3006       // Local port for the application
+}
 ```
 
-5. Execute `sudo brew services restart dnsmasq`
+### 2. Domain Configuration
 
-If the step 5 does not work. Restart using:
+```typescript
+{
+  app: App.MEMBER,                    // Must match an app configuration
+  platforms: ["localmember"],         // Platform prefix for domains
+  subdomains: [
+    {
+      creditUnions: ["wp", "bhcu"],  // Credit union identifiers (can be empty)
+      subdomain: "blossombeta.com"   // Base domain
+    }
+  ]
+}
+```
 
-`sudo brew services stop dnsmasq`
-`sudo brew services start dnsmasq`
+### How Domains Are Generated
+
+The domain generator combines these components to create URLs in the following format:
+
+- With credit unions: `[platform].[creditUnion].[subdomain]`
+- Without credit unions: `[platform].[subdomain]`
+
+Examples:
+
+- `localmember.wp.blossombeta.com`
+- `localui.blossomdev.com`
+
+To add a new domain:
+
+1. Ensure the app exists in `appsConfig`
+2. Add or modify an entry in `domainGeneratorConfigs`
+3. Run the domain configuration generator
+
+## Available Utilities
+
+### Domain Configuration Generator (`src/configure-domain-files/`)
+
+Generates domain configurations and stores those files on `PATH_TO_CONFIG` folder
+
+```bash
+npx ts-node src/configure-domain-files -o "PATH_TO_CONFIG" -i IP_ADDRESS
+```
+
+Options:
+
+- `-o`: Path to configuration file (required)
+- `-i`: IP address for host entries (default: "localhost")
+
+### Bash Utilities (`src/bash-utils/`)
+
+#### Apply Domain Configuration
+
+```bash
+bash src/bash-utils/apply-domain-config.sh PATH_TO_CONFIG
+```
+
+- Applies generated configuration to Nginx and hosts file
+- Creates backups in `backups/` directory
+- Requires sudo privileges
+
+#### Remote Execution
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/homecu/configure-dns/refs/heads/main/src/bash-utils/UTIL_NAME)"
+```
+
+#### Local Execution
+
+```bash
+/bin/bash -c "./bash-utils/UTIL_NAME"
+```
+
+## Troubleshooting
+
+If configuration changes don't take effect:
+
+1. Check file permissions
+2. Restart Nginx: `sudo nginx -s reload`
+3. Check backup files in case of rollback needs
