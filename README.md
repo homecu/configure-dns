@@ -72,7 +72,7 @@ To add a new domain:
 Generates domain configurations from a JSON config file.
 
 ```bash
-npx ts-node src/configure-domain-files -o "PATH_TO_CONFIG.json" -i IP_ADDRESS
+npx ts-node src/configure-domain-files -o "PATH_TO_CONFIG" -i IP_ADDRESS
 ```
 
 Options:
