@@ -118,17 +118,12 @@ If configuration changes don't take effect:
 This Bash script automates the setup of required dependencies to solve common issues when installing or running the canvas package in Node.js projects. It’s tailored for macOS and uses Homebrew to install necessary system libraries.
 
 ## 📄 What Does This Script Do?
-Installs system-level dependencies required to compile canvas.
-
-Creates and activates a Python virtual environment.
-
-Upgrades pip and installs setuptools.
-
-Verifies that setuptools is properly installed.
-
-Switches to Node.js version 16.13.1 using nvm.
-
-Starts your project using npm start.
+1. Installs system-level dependencies required to compile canvas.
+2. Creates and activates a Python virtual environment.
+3. Upgrades pip and installs setuptools.
+4. Verifies that setuptools is properly installed.
+5. Switches to Node.js version 16.13.1 using nvm.
+6. Starts your project using npm start.
 
 ## 📋 Prerequisites
 Before running the script, ensure the following are installed on your system:
