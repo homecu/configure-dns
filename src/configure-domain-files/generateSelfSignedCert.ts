@@ -1,7 +1,9 @@
-import * as crypto from "crypto";
 import * as fs from "fs/promises";
-import * as forge from "node-forge";
 import * as path from "path";
+import { exec } from "child_process";
+import { promisify } from "util";
+
+const execPromise = promisify(exec);
 
 interface CertOptions {
   days?: number;
@@ -9,16 +11,25 @@ interface CertOptions {
   organization?: string;
 }
 
+/**
+ * Checks if mkcert is installed in the system
+ */
+async function checkMkcertInstalled(): Promise<boolean> {
+  try {
+    await execPromise("mkcert -version");
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
+/**
+ * Generate SSL certificates using mkcert utility
+ */
 export async function generateSelfSignedCert(
   outputPath: string,
-  options: CertOptions = {}
+  domains: { domain: string }[] = []
 ): Promise<{ certPath: string; keyPath: string }> {
-  const {
-    days = 365,
-    commonName = "localhost",
-    organization = "Self-Signed Certificate",
-  } = options;
-
   // Make sure the output directory exists
   try {
     await fs.access(outputPath);
@@ -29,45 +40,42 @@ export async function generateSelfSignedCert(
   const certPath = path.join(outputPath, "ssl.crt");
   const keyPath = path.join(outputPath, "ssl.key");
 
-  // Generate a key pair
-  const { privateKey, publicKey } = crypto.generateKeyPairSync("rsa", {
-    modulusLength: 2048,
-    publicKeyEncoding: {
-      type: "spki",
-      format: "pem",
-    },
-    privateKeyEncoding: {
-      type: "pkcs8",
-      format: "pem",
-    },
-  });
+  // Check if mkcert is installed
+  const isMkcertInstalled = await checkMkcertInstalled();
 
-  // Create a validity period
-  const validFrom = new Date();
-  const validTo = new Date(validFrom);
-  validTo.setDate(validFrom.getDate() + days);
-  // Create a certificate using node-forge
-  const cert = forge.pki.createCertificate();
-  cert.publicKey = forge.pki.publicKeyFromPem(publicKey);
-  cert.privateKey = forge.pki.privateKeyFromPem(privateKey);
-  cert.serialNumber = crypto.randomBytes(16).toString("hex");
-  cert.validity.notBefore = validFrom;
-  cert.validity.notAfter = validTo;
+  if (!isMkcertInstalled) {
+    throw new Error(
+      "mkcert is not installed. Please install it with 'brew install mkcert' on macOS or follow instructions at https://github.com/FiloSottile/mkcert"
+    );
+  }
 
-  cert.setSubject([
-    { name: "commonName", value: commonName },
-    { name: "organizationName", value: organization },
-  ]);
-  cert.setIssuer([
-    { name: "commonName", value: commonName },
-    { name: "organizationName", value: organization },
-  ]);
+  // Extract unique domain names
+  const uniqueDomains = [...new Set(domains.map((d) => d.domain))];
 
-  cert.sign(cert.privateKey);
+  // Add localhost and 127.0.0.1 to the domains list
+  const allDomains = ["localhost", "127.0.0.1", ...uniqueDomains];
 
-  // Export the certificate and key
-  await fs.writeFile(certPath, forge.pki.certificateToPem(cert));
-  await fs.writeFile(keyPath, privateKey);
+  console.log(`Generating certificates for ${allDomains.length} domains...`);
 
-  return { certPath, keyPath };
+  try {
+    // Generate certificate with mkcert for all domains
+    const { stdout, stderr } = await execPromise(
+      `mkcert -cert-file "${certPath}" -key-file "${keyPath}" ${allDomains.join(
+        " "
+      )}`
+    );
+
+    console.log(stdout);
+
+    if (stderr) {
+      console.warn("Warnings from mkcert:", stderr);
+    }
+
+    console.log(`Certificates generated at ${certPath} and ${keyPath}`);
+
+    return { certPath, keyPath };
+  } catch (error: any) {
+    console.error("Error generating certificates:", error.message);
+    throw new Error(`Failed to generate certificates: ${error.message}`);
+  }
 }

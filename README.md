@@ -19,6 +19,17 @@ cd configure-dns
 npm install
 ```
 
+### Prerequisites
+
+- **mkcert**: This tool is used to generate locally-trusted SSL certificates
+  ```bash
+  # On macOS
+  brew install mkcert
+  # Initialize the local CA
+  mkcert -install
+  ```
+  For other platforms, follow instructions at https://github.com/FiloSottile/mkcert
+
 ## Adding New Domains
 
 Domains are configured in `src/configure-domain-files/configurations.ts`. The configuration consists of two main parts:

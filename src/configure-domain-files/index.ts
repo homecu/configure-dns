@@ -22,16 +22,13 @@ const main = async (outputPath: string, ip?: string) => {
     (app) => appsConfig.find((config) => config.app === app)!
   );
 
-  computeDomainsFromConfig(domainGeneratorConfigs[0]);
-
   const proxyParamsPath = `${outputPath}/proxy_params`;
   const sslParamsPath = `${outputPath}/ssl_params.conf`;
 
-  const { certPath, keyPath } = await generateSelfSignedCert(outputPath, {
-    commonName: "localhost",
-    organization: "Local Development",
-    days: 365,
-  });
+  const { certPath, keyPath } = await generateSelfSignedCert(
+    outputPath,
+    domains
+  ); // Pass domains to the function
 
   const proxyParamsPromise = generateProxyParamsFile(outputPath);
 
