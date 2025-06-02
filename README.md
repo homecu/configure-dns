@@ -24,7 +24,9 @@ npm install
 - **mkcert**: This tool is used to generate locally-trusted SSL certificates
   ```bash
   # On macOS
+  brew install nginx
   brew install mkcert
+  brew install nss
   # Initialize the local CA
   mkcert -install
   ```
