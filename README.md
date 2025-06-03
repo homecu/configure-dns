@@ -1,5 +1,7 @@
 # DNS Configuration Tools
 
+GUIDE ON NOTION: https://www.notion.so/blossom-net/Domains-and-SSL-configuration-207139a2ceab807483e0ea71d2272fde?source=copy_link
+
 Collection of utilities to manage local DNS configuration and domain mapping for development environments.
 
 ## Overview
