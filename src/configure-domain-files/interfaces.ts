@@ -1,6 +1,7 @@
 export enum App {
   MEMBER = "member",
   ADMIN = "admin",
+  DREAM = "dream",
   AUTH = "auth",
   VIEWER = "viewer",
   BREEZE = "breeze",

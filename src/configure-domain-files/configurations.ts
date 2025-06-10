@@ -23,6 +23,10 @@ export const appsConfig: AppConfig[] = [
     port: 4011,
   },
   {
+    app: App.DREAM,
+    port: 4012,
+  },
+  {
     app: App.UI,
     port: 3004,
   },
@@ -58,6 +62,16 @@ export const domainGeneratorConfigs: DomainGeneratorConfig[] = [
       {
         creditUnions: ["homecu", "pdcu"],
         subdomain: "blossomdev.com",
+      },
+    ],
+  },
+  {
+    app: App.ADMIN,
+    platforms: ["localmagic"],
+    subdomains: [
+      {
+        creditUnions: ["wasatchpeaks"],
+        subdomain: "com",
       },
     ],
   },
@@ -113,6 +127,16 @@ export const domainGeneratorConfigs: DomainGeneratorConfig[] = [
     subdomains: [
       {
         creditUnions: [],
+        subdomain: "blossomdev.com",
+      },
+    ],
+  },
+  {
+    app: App.DREAM,
+    platforms: ["localdream"],
+    subdomains: [
+      {
+        creditUnions: ["homecu"],
         subdomain: "blossomdev.com",
       },
     ],
