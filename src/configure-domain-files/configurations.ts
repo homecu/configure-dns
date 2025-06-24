@@ -7,6 +7,10 @@ export const appsConfig: AppConfig[] = [
     port: 3006,
   },
   {
+    app: App.CMS,
+    port: 3006,
+  },
+  {
     app: App.ADMIN,
     port: 3002,
   },
@@ -47,6 +51,20 @@ export const domainGeneratorConfigs: DomainGeneratorConfig[] = [
       },
       {
         creditUnions: ["homecu", "pdcu"],
+        subdomain: "blossomdev.com",
+      },
+    ],
+  },
+  {
+    app: App.CMS,
+    platforms: ["localcms"],
+    subdomains: [
+      {
+        creditUnions: [],
+        subdomain: "blossomdev.com",
+      },
+      {
+        creditUnions: ["homecu"],
         subdomain: "blossomdev.com",
       },
     ],

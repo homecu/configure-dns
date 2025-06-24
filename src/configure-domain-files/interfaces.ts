@@ -6,6 +6,7 @@ export enum App {
   VIEWER = "viewer",
   BREEZE = "breeze",
   UI = "ui",
+  CMS = "cms",
 }
 
 export interface AppConfig {
