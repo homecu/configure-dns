@@ -34,6 +34,10 @@ export const appsConfig: AppConfig[] = [
     app: App.UI,
     port: 3004,
   },
+  {
+    app: App.CAKE,
+    port: 3012,
+  },
 ];
 
 export const domainGeneratorConfigs: DomainGeneratorConfig[] = [
@@ -90,6 +94,20 @@ export const domainGeneratorConfigs: DomainGeneratorConfig[] = [
       {
         creditUnions: ["wasatchpeaks"],
         subdomain: "com",
+      },
+    ],
+  },
+  {
+    app: App.CAKE,
+    platforms: ["localcake"],
+    subdomains: [
+      {
+        creditUnions: [],
+        subdomain: "blossomalpha.com",
+      },
+      {
+        creditUnions: [],
+        subdomain: "blossomdev.com",
       },
     ],
   },
