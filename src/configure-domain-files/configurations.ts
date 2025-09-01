@@ -38,6 +38,10 @@ export const appsConfig: AppConfig[] = [
     app: App.CAKE,
     port: 3012,
   },
+  {
+    app: App.SWIPE,
+    port: 3004,
+  },
 ];
 
 export const domainGeneratorConfigs: DomainGeneratorConfig[] = [
@@ -174,6 +178,20 @@ export const domainGeneratorConfigs: DomainGeneratorConfig[] = [
       {
         creditUnions: ["homecu"],
         subdomain: "blossomdev.com",
+      },
+    ],
+  },
+  {
+    app: App.SWIPE,
+    platforms: ["localswipe"],
+    subdomains: [
+      {
+        creditUnions: ["pdcu", "homecu"],
+        subdomain: "blossomdev.com",
+      },
+      {
+        creditUnions: ["wp", "stj"],
+        subdomain: "blossombeta.com",
       },
     ],
   },

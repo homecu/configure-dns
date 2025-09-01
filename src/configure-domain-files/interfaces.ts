@@ -8,6 +8,7 @@ export enum App {
   UI = "ui",
   CMS = "cms",
   CAKE = "cake",
+  SWIPE = "swipe",
 }
 
 export interface AppConfig {
