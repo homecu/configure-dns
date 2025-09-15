@@ -1,16 +1,53 @@
 #!/bin/bash
 
+# Get the directory where this script is located
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PARAM_HELPER="$SCRIPT_DIR/../configure-domain-files/param-helper.ts"
+
 # Get Homebrew prefix
 BREW_PREFIX=$(brew --prefix)
 
-# Check if path argument is provided
-if [ $# -ne 1 ]; then
-    echo "Error: Please provide the configuration directory path"
+# Function to show usage
+show_usage() {
     echo "Usage: $0 <config-dir-path>"
+    echo "       $0 --reapply"
+    echo ""
+    echo "Options:"
+    echo "  <config-dir-path>  Path to the configuration directory"
+    echo "  --reapply         Use the last saved configuration path"
+}
+
+# Handle arguments
+CONFIG_DIR=""
+REAPPLY=false
+
+if [ $# -eq 0 ]; then
+    echo "Error: No arguments provided"
+    show_usage
+    exit 1
+elif [ $# -eq 1 ]; then
+    if [ "$1" = "--reapply" ] || [ "$1" = "-r" ]; then
+        REAPPLY=true
+        # Get last used configuration path
+        if [ -f "$PARAM_HELPER" ]; then
+            CONFIG_DIR=$(npx ts-node "$PARAM_HELPER" get-apply)
+            if [ -z "$CONFIG_DIR" ]; then
+                echo "Error: No saved configuration path found. Please run the command with a config directory path first."
+                exit 1
+            fi
+            echo "Using saved configuration path: $CONFIG_DIR"
+        else
+            echo "Error: Parameter helper not found. Cannot use --reapply option."
+            exit 1
+        fi
+    else
+        CONFIG_DIR="$1"
+    fi
+else
+    echo "Error: Too many arguments"
+    show_usage
     exit 1
 fi
-
-CONFIG_DIR="$1"
 
 # Check if directory exists
 if [ ! -d "$CONFIG_DIR" ]; then
@@ -79,6 +116,12 @@ sudo nginx -s reload
 if [ $? -ne 0 ]; then
     echo "Error: Failed to reload nginx"
     exit 1
+fi
+
+# Save configuration path for future use (only if not using --reapply)
+if [ "$REAPPLY" = false ] && [ -f "$PARAM_HELPER" ]; then
+    npx ts-node "$PARAM_HELPER" save-apply "$CONFIG_DIR"
+    echo "Configuration path saved for future reapplication."
 fi
 
 echo "Configuration applied successfully!"

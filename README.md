@@ -92,8 +92,21 @@ npx ts-node src/configure-domain-files -o "PATH_TO_CONFIG" -i IP_ADDRESS
 
 Options:
 
-- `-o`: Path to configuration file (required)
-- `-i`: IP address for host entries (default: "localhost")
+- `-o, --output`: Path to configuration file (required)
+- `-i, --ip`: IP address for host entries (default: "127.0.0.1")
+- `-r, --regenerate`: Use the last saved parameters to regenerate configuration
+
+#### Regenerating with saved parameters
+
+After running the command once, you can regenerate the configuration using the same parameters:
+
+```bash
+npx ts-node src/configure-domain-files --regenerate
+# or use the short flag:
+npx ts-node src/configure-domain-files -r
+```
+
+This will use the previously saved output path and IP address, making it easy to regenerate configurations without remembering the exact parameters.
 
 ### Bash Utilities (`src/bash-utils/`)
 
@@ -107,6 +120,18 @@ bash src/bash-utils/apply-domain-config.sh PATH_TO_CONFIG
 - Creates backups in `backups/` directory
 - Requires sudo privileges
 
+#### Reapplying with saved configuration path
+
+After applying a configuration once, you can reapply using the same path:
+
+```bash
+bash src/bash-utils/apply-domain-config.sh --reapply
+# or use the short flag:
+bash src/bash-utils/apply-domain-config.sh -r
+```
+
+This will use the previously saved configuration path, eliminating the need to remember or locate the exact path used before.
+
 #### Remote Execution
 
 ```bash
@@ -118,6 +143,30 @@ bash src/bash-utils/apply-domain-config.sh PATH_TO_CONFIG
 ```bash
 /bin/bash -c "./bash-utils/UTIL_NAME"
 ```
+
+## Quick Usage Examples
+
+### First time setup:
+```bash
+# Generate configuration
+npx ts-node src/configure-domain-files -o "/path/to/config" -i "127.0.0.1"
+
+# Apply configuration
+bash src/bash-utils/apply-domain-config.sh "/path/to/config"
+```
+
+### Subsequent usage (using saved parameters):
+```bash
+# Regenerate configuration with saved parameters
+npx ts-node src/configure-domain-files --regenerate
+# or: npx ts-node src/configure-domain-files -r
+
+# Reapply configuration with saved path
+bash src/bash-utils/apply-domain-config.sh --reapply
+# or: bash src/bash-utils/apply-domain-config.sh -r
+```
+
+The tool automatically remembers your last used parameters, so you don't need to remember paths or settings between sessions.
 
 ## Troubleshooting
 
