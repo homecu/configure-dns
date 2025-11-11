@@ -85,7 +85,7 @@ export const domainGeneratorConfigs: DomainGeneratorConfig[] = [
     app: App.AUTH,
     platforms: ["localauth"],
     subdomains: [
-       {
+      {
         creditUnions: ["nshore"],
         subdomain: "blossomalpha.com",
       },
@@ -106,6 +106,10 @@ export const domainGeneratorConfigs: DomainGeneratorConfig[] = [
       {
         creditUnions: ["wasatchpeaks"],
         subdomain: "com",
+      },
+      {
+        creditUnions: ["nshore"],
+        subdomain: "blossomalpha.com",
       },
     ],
   },
@@ -132,7 +136,7 @@ export const domainGeneratorConfigs: DomainGeneratorConfig[] = [
         subdomain: "blossomdev.com",
       },
       {
-        creditUnions: ["crossvalley", "wp2"],
+        creditUnions: ["crossvalley", "wp2", "nshore"],
         subdomain: "blossomalpha.com",
       },
       {
