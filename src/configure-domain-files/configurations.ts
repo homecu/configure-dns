@@ -104,6 +104,10 @@ export const domainGeneratorConfigs: DomainGeneratorConfig[] = [
     platforms: ["localmagic"],
     subdomains: [
       {
+        creditUnions: ["demo2"],
+        subdomain: "blossombeta.com",
+      },
+      {
         creditUnions: ["wasatchpeaks"],
         subdomain: "com",
       },
