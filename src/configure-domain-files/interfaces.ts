@@ -5,6 +5,7 @@ export enum App {
   VIEWER = "viewer",
   BREEZE = "breeze",
   UI = "ui",
+  FILES = "files",
 }
 
 export interface AppConfig {

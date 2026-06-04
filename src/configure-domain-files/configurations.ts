@@ -26,6 +26,10 @@ export const appsConfig: AppConfig[] = [
     app: App.UI,
     port: 3004,
   },
+  {
+    app: App.FILES,
+    port: 3005,
+  },
 ];
 
 export const domainGeneratorConfigs: DomainGeneratorConfig[] = [
@@ -113,6 +117,20 @@ export const domainGeneratorConfigs: DomainGeneratorConfig[] = [
     subdomains: [
       {
         creditUnions: [],
+        subdomain: "blossomdev.com",
+      },
+    ],
+  },
+  {
+    app: App.FILES,
+    platforms: ["localfiles"],
+    subdomains: [
+      {
+        creditUnions: ["wp", "stj", "bhcu", "clarity", "amucu"],
+        subdomain: "blossombeta.com",
+      },
+      {
+        creditUnions: ["homecu", "pdcu"],
         subdomain: "blossomdev.com",
       },
     ],
