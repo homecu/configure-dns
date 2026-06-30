@@ -54,7 +54,7 @@ export const domainGeneratorConfigs: DomainGeneratorConfig[] = [
         subdomain: "com",
       },
       {
-        creditUnions: ["nshore"],
+        creditUnions: ["nshore", "fidelis"],
         subdomain: "blossomalpha.com",
       },
       {
@@ -140,7 +140,7 @@ export const domainGeneratorConfigs: DomainGeneratorConfig[] = [
         subdomain: "blossomdev.com",
       },
       {
-        creditUnions: ["crossvalley", "wp2", "nshore"],
+        creditUnions: ["crossvalley", "wp2", "nshore", "fidelis"],
         subdomain: "blossomalpha.com",
       },
       {
@@ -157,6 +157,10 @@ export const domainGeneratorConfigs: DomainGeneratorConfig[] = [
     app: App.VIEWER,
     platforms: ["localviewer"],
     subdomains: [
+      {
+        creditUnions: ["fidelis"],
+        subdomain: "blossomalpha.com",
+      },
       {
         creditUnions: ["wp", "bhcu", "stj", "clarity"],
         subdomain: "blossombeta.com",
