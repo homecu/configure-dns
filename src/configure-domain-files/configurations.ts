@@ -54,7 +54,7 @@ export const domainGeneratorConfigs: DomainGeneratorConfig[] = [
         subdomain: "com",
       },
       {
-        creditUnions: ["nshore", "fidelis"],
+        creditUnions: ["nshore", "fidelis", "bayoucomm"],
         subdomain: "blossomalpha.com",
       },
       {
